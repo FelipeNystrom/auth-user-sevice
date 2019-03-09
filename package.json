@@ -1,0 +1,14 @@
+{
+  "name": "user-auth-service",
+  "version": "1.0.0",
+  "description": "small microservice handleing user auth and CRUD",
+  "main": "server.js",
+  "author": "FelipeNystrom <andre.felipe.nystrom@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-promise-router": "^3.0.3",
+    "jsonwebtoken": "^8.5.0",
+    "pg-promise": "^8.6.3"
+  }
+}
