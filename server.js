@@ -1,3 +1,4 @@
+require('dotenv').config({ path: __dirname + '/.env' });
 const server = require('express')();
 const serverConfig = require('./serverConfig');
 const mountRoutes = require('./_routes');

@@ -1,4 +1,5 @@
 const Router = require('express-promise-router');
+const bcrypt = require('bcryptjs');
 const router = new Router();
 const { createUser, checkIfUserExists } = require('../_queries');
 
@@ -7,7 +8,7 @@ module.exports = router;
 router.post('/create', async (req, res) => {
   if (!req.body.username || !req.body.email || !req.body.password) {
     return res.status(400).send({
-      error: 'Could not find username, email or password in request body'
+      Error: 'Could not find username, email or password in request body'
     });
   }
 
@@ -15,15 +16,18 @@ router.post('/create', async (req, res) => {
     body: { username, email, password }
   } = req;
 
+  const saltRounds = 12;
   const userExists = await checkIfUserExists(username);
 
   if (!userExists) {
+    const encryptedPasswordHash = await bcrypt.hash(password, saltRounds);
+
     try {
-      const createdUser = await createUser(username, email, password);
+      await createUser(username, email, encryptedPasswordHash);
 
-      debugger;
-
-      res.send({ message: 'user is created!' });
+      res.send({
+        message: `User ${username} is created succefully!`
+      });
     } catch (error) {
       return res
         .status(500)
