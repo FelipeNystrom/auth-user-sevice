@@ -1,6 +1,10 @@
 const db = require('../_db');
 
 module.exports = {
+  getUserWithUsername: username => {
+    const sql = 'SELECT * FROM users WHERE username = $1';
+    return db.oneOrNone(sql, [username]);
+  },
   createUser: (username, email, password) => {
     const sql =
       'INSERT  INTO users (username, email, password) VALUES($1, $2, $3) RETURNING *';
