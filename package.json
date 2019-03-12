@@ -3,12 +3,26 @@
   "version": "1.0.0",
   "description": "small microservice handleing user auth and CRUD",
   "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon -r dotenv/config server.js",
+    "start": "nodemon server.js",
+    "debug": "nodemon --inspect -r dotenv/config server.js"
+  },
   "author": "FelipeNystrom <andre.felipe.nystrom@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
     "jsonwebtoken": "^8.5.0",
-    "pg-promise": "^8.6.3"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "pg-promise": "^8.6.3",
+    "sanitize": "^2.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.2.0"
   }
 }
