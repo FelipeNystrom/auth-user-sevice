@@ -10,7 +10,8 @@ const options = {
 
 module.exports = new JWTStrategy(options, async (jwt_payload, done) => {
   try {
-    const verified = await getUserWithUsername(jwt_payload.id);
+    debugger;
+    const verified = await getUserWithUsername(jwt_payload.sub);
 
     if (verified) {
       done(null, verified);

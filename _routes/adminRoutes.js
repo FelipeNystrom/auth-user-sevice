@@ -7,9 +7,11 @@ const {} = require('../_queries');
 module.exports = router;
 
 router.post('/login', async (req, res) => {
-  const { user } = req;
+  const {
+    user: { username }
+  } = req;
 
-  const token = jwt.sign({ id: user.username }, jwtSecret);
+  const token = jwt.sign({ sub: username }, jwtSecret, { expiresIn: '1h' });
 
   res.send({
     auth: true,
