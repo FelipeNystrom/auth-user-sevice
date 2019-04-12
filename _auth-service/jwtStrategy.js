@@ -1,16 +1,19 @@
 const JWTStrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const jwtSecret = require('./jwtConfig').secret;
+const fs = require('fs');
+const path = require('path');
 const { getUserWithUsername } = require('../_queries');
 
+const filePath = path.join(__dirname, '../keys/public.pem');
+
+const publicEKey = fs.readFileSync(filePath);
 const options = {
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: jwtSecret
+  secretOrKey: publicEKey
 };
 
 module.exports = new JWTStrategy(options, async (jwt_payload, done) => {
   try {
-    debugger;
     const verified = await getUserWithUsername(jwt_payload.sub);
 
     if (verified) {
