@@ -15,7 +15,6 @@ router.post('/login', async (req, res) => {
   const {
     user: { username }
   } = req;
-
   const token = jwt.sign({ sub: username }, privateEKey, {
     expiresIn: '1h',
     algorithm: 'RS256'

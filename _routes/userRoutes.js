@@ -11,6 +11,7 @@ const {
 module.exports = router;
 
 router.post('/create', async (req, res) => {
+  debugger;
   if (!req.body.username || !req.body.email || !req.body.password) {
     return res.status(400).send({
       Error: 'Could not find username, email or password in request body'

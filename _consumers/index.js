@@ -1,12 +1,12 @@
 const kafka = require('kafka-node');
 
-const Producer = kafka.Producer;
+const HighLevelProducer = kafka.HighLevelProducer;
 const Client = kafka.KafkaClient;
 const Consumer = kafka.Consumer;
 const { checkIfUserExists: getUser } = require('../_queries');
 
 const client = new Client();
-const producer = new Producer(client, { requireAcks: 1 });
+const producer = new HighLevelProducer(client, { requireAcks: 1 });
 
 const topics = [{ topic: 'author', partition: 0 }];
 
