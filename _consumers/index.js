@@ -7,8 +7,6 @@ const kafka = new Kafka({
   brokers: ['kafka:9092']
 });
 
-debugger;
-
 const consumer = kafka.consumer({ groupId: 'auth-group' });
 const producer = kafka.producer();
 
@@ -30,11 +28,13 @@ const consume = async topic => {
 
       const usernameFromDb = await getUserWithUsername(messageFromConsumer);
 
-      console.log(usernameFromDb);
+      const userObjToJSON = JSON.stringify(usernameFromDb);
+
+      console.log(userObjToJSON);
 
       await producer.send({
         topic: 'author_reply',
-        messages: [{ value: Buffer.from(usernameFromDb) }],
+        messages: [{ value: Buffer.from(userObjToJSON) }],
         acks: 1
       });
 
