@@ -1,35 +1,17 @@
 const express = require('express');
 const sanitize = require('sanitize');
 const passport = require('passport');
-const HighLevelProducer = kafka.HighLevelProducer;
-const Client = kafka.KafkaClient;
-const client = new Client({ kafkaHost: 'kafka:9092' });
-const producer = new HighLevelProducer(client);
+const { Kafka } = require('kafkajs');
 
-producer.on('error', err => {
-  console.log('kafka producer has an error: ');
-  console.error(err);
-});
-
-producer.on('ready', () => {
-  console.log('kafka producer is ready');
-});
-debugger;
-consumer.on('message', (err, data) => {
-  debugger;
-  if (err) {
-    debugger;
-    console.error(err);
-  }
-  console.log(data);
-  debugger;
+const kafka = new Kafka({
+  clientId: 'authService',
+  brokers: ['kafka:9092']
 });
 
 const kafkaInit = (req, res, next) => {
-  req.producer = producer;
-  req.client = client;
+  req.producer = kafka.producer();
+
   next();
-  debugger;
 };
 
 module.exports = server => {
