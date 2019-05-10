@@ -7,11 +7,10 @@ const mountRoutes = require('./_routes');
 const kafkaStandaloneConsumerSetup = require('./_consumers');
 const _port = process.env.PORT || 5001;
 
-const topic = { topic: 'author' };
+const topics = [{ topic: 'author' }, { topic: 'user_auth' }];
 
 serverConfig(server);
-kafkaStandaloneConsumerSetup(topic);
-debugger;
+kafkaStandaloneConsumerSetup(topics);
 passportConfig(passport);
 mountRoutes(server);
 

@@ -10,13 +10,17 @@ const kafka = new Kafka({
 const consumer = kafka.consumer({ groupId: 'auth-group' });
 const producer = kafka.producer();
 
-const consume = async topic => {
+const consume = async topics => {
   let messageFromConsumer;
-
+  debugger;
   await consumer.connect();
   await producer.connect();
 
-  await consumer.subscribe(topic);
+  for (let i = 0; i < topics.length; i++) {
+    await consumer.subscribe(topics[i]);
+    debugger;
+  }
+  debugger;
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const prefix = `${topic}[${partition} | ${message.offset}] / ${
