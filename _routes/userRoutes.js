@@ -11,7 +11,6 @@ const {
 module.exports = router;
 
 router.post('/create', async (req, res) => {
-  debugger;
   if (!req.body.username || !req.body.email || !req.body.password) {
     return res.status(400).send({
       Error: 'Could not find username, email or password in request body'
@@ -31,7 +30,7 @@ router.post('/create', async (req, res) => {
     try {
       await createUser(username, email, encryptedPasswordHash);
 
-      res.send({
+      return res.send({
         message: `User ${username} is created succefully!`
       });
     } catch (error) {
@@ -82,8 +81,6 @@ router.put('/update', async (req, res) => {
     }
 
     res.send({ message: `User ${username} has been updated!` });
-
-    debugger;
   } catch (error) {
     res
       .status(500)

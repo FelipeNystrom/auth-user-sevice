@@ -5,11 +5,8 @@ const { getUserWithUsername } = require('../_queries');
 module.exports = new LocalStrategy(
   { session: false },
   async (username, password, done) => {
-    debugger;
     try {
-      debugger;
       const user = await getUserWithUsername(username);
-      debugger;
       if (!user) {
         return done(null, false, { message: 'Wrong username.' });
       }
