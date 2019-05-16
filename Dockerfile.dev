@@ -1,6 +1,6 @@
 FROM node:alpine
 RUN apk add --no-cache python build-base 
-WORKDIR /auth-service
+WORKDIR /auth-user-service
 COPY ./package.json .
 RUN yarn install
 COPY . .

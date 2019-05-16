@@ -7,16 +7,30 @@ const kafka = new Kafka({
   brokers: ['kafka:9092']
 });
 
+const matchTopic = topic => {
+  switch (topic) {
+    case 'author':
+      return 'author_reply';
+    case 'user_auth':
+      return 'user_auth_reply';
+    default:
+      return null;
+  }
+};
+
 const consumer = kafka.consumer({ groupId: 'auth-group' });
 const producer = kafka.producer();
 
-const consume = async topic => {
+const consume = async topics => {
   let messageFromConsumer;
 
   await consumer.connect();
   await producer.connect();
 
-  await consumer.subscribe(topic);
+  for (let i = 0; i < topics.length; i++) {
+    await consumer.subscribe(topics[i]);
+  }
+
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
       const prefix = `${topic}[${partition} | ${message.offset}] / ${
@@ -30,13 +44,15 @@ const consume = async topic => {
 
       const userObjToJSON = JSON.stringify(usernameFromDb);
 
-      console.log(userObjToJSON);
+      responseTopic = matchTopic(topic);
 
-      await producer.send({
-        topic: 'author_reply',
-        messages: [{ value: Buffer.from(userObjToJSON) }],
-        acks: 1
-      });
+      if (responseTopic) {
+        await producer.send({
+          topic: responseTopic,
+          messages: [{ value: Buffer.from(userObjToJSON) }],
+          acks: 1
+        });
+      }
 
       producer.disconnect();
     }
