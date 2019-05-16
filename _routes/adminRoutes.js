@@ -12,9 +12,12 @@ const privateEKey = fs.readFileSync(filePath);
 module.exports = router;
 
 router.post('/login', async (req, res) => {
+  debugger;
   const {
-    user: { username }
+    body: { username }
   } = req;
+
+  debugger;
   const token = jwt.sign({ sub: username }, privateEKey, {
     expiresIn: '1h',
     algorithm: 'RS256'

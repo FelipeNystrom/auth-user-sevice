@@ -11,7 +11,6 @@ module.exports = {
     return db.one(sql, [username, email, password]);
   },
   checkIfUserExists: username => {
-    debugger;
     const sql = 'SELECT * FROM auth_service.users WHERE username = $1';
     return db.oneOrNone(sql, [username]);
   },
