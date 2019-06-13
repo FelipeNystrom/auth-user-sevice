@@ -1,13 +1,8 @@
 const Router = require('express-promise-router');
-const fs = require('fs');
-const path = require('path');
 const jwt = require('jsonwebtoken');
 const router = new Router();
-const {} = require('../_queries');
 
-const filePath = path.join(__dirname, '../keys/signing.pem');
-
-const privateEKey = fs.readFileSync(filePath);
+const { PRIVATE_KEY } = process.env;
 
 module.exports = router;
 
@@ -18,7 +13,7 @@ router.post('/login', async (req, res) => {
   } = req;
 
   debugger;
-  const token = jwt.sign({ sub: username }, privateEKey, {
+  const token = jwt.sign({ sub: username }, PRIVATE_KEY, {
     expiresIn: '1h',
     algorithm: 'RS256'
   });
