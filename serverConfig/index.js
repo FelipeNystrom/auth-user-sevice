@@ -4,7 +4,7 @@ const { Kafka } = require('kafkajs');
 
 const kafka = new Kafka({
   clientId: 'authService',
-  brokers: ['kafka:9092']
+  brokers: ['kafka-broker:9092']
 });
 
 const kafkaInit = (req, res, next) => {
