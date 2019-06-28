@@ -20,6 +20,7 @@ router.post('/login', async (req, res) => {
 
   res.send({
     auth: true,
+    username,
     token
   });
 });
