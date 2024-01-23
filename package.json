@@ -16,7 +16,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
-    "jsonwebtoken": "^8.5.0",
+    "jsonwebtoken": "^9.0.0",
     "kafkajs": "^1.7.0",
     "pg-promise": "^8.6.3",
     "sanitize": "^2.1.0"
